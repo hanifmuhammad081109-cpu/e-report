@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Report Sekolah - Dashboard</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📊</span>
+                    <h1>E-Report</h1>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <span class="icon">📈</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="input">
+                    <span class="icon">📝</span>
+                    <span>Input Laporan</span>
+                </a>
+                <a href="#" class="nav-item" data-page="view">
+                    <span class="icon">📋</span>
+                    <span>Lihat Laporan</span>
+                </a>
+                <a href="#" class="nav-item" data-page="statistik">
+                    <span class="icon">📊</span>
+                    <span>Statistik</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-delete-all">🗑️ Hapus Semua Data</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+                <div class="top-bar-right">
+                    <span id="tanggalSekarang" class="date-display"></span>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-container">
+                <!-- Dashboard Page -->
+                <div class="page dashboard-page active">
+                    <div class="dashboard-grid">
+                        <!-- Welcome Card -->
+                        <div class="card welcome-card">
+                            <h3>Selamat Datang! 👋</h3>
+                            <p>Kelola semua laporan siswa Anda dengan mudah dan efisien menggunakan sistem e-report kami.</p>
+                        </div>
+
+                        <!-- Statistics Cards -->
+                        <div class="card stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Total Laporan</p>
+                                <p class="stat-value" id="totalLaporan">0</p>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card">
+                            <div class="stat-icon">👨‍🎓</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Total Siswa</p>
+                                <p class="stat-value" id="totalSiswa">0</p>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Lulus</p>
+                                <p class="stat-value" id="totalLulus">0</p>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card">
+                            <div class="stat-icon">❌</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Tidak Lulus</p>
+                                <p class="stat-value" id="totalTidakLulus">0</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Reports -->
+                        <div class="card-full-width">
+                            <h3>📋 Laporan Terbaru</h3>
+                            <div class="table-responsive">
+                                <table id="recentTable" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Kelas</th>
+                                            <th>Nilai</th>
+                                            <th>Status</th>
+                                            <th>Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="6" style="text-align: center; color: #999;">Belum ada data</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Page -->
+                <div class="page input-page">
+                    <div class="card">
+                        <h3>📝 Input Laporan Baru</h3>
+                        <form id="laporanForm" class="form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nama">Nama Siswa *</label>
+                                    <input type="text" id="nama" placeholder="Masukkan nama siswa" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kelas">Kelas *</label>
+                                    <select id="kelas" required>
+                                        <option value="">-- Pilih Kelas --</option>
+                                        <option value="X-A">X-A</option>
+                                        <option value="X-B">X-B</option>
+                                        <option value="X-C">X-C</option>
+                                        <option value="XI-A">XI-A</option>
+                                        <option value="XI-B">XI-B</option>
+                                        <option value="XII-A">XII-A</option>
+                                        <option value="XII-B">XII-B</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="judul">Judul Laporan *</label>
+                                <input type="text" id="judul" placeholder="Masukkan judul laporan" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nilai">Nilai *</label>
+                                    <input type="number" id="nilai" min="0" max="100" placeholder="Masukkan nilai (0-100)" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kategori">Kategori *</label>
+                                    <select id="kategori" required>
+                                        <option value="">-- Pilih Kategori --</option>
+                                        <option value="Tugas">Tugas</option>
+                                        <option value="Quiz">Quiz</option>
+                                        <option value="UTS">UTS</option>
+                                        <option value="UAS">UAS</option>
+                                        <option value="Proyek">Proyek</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea id="keterangan" placeholder="Tambahkan keterangan (opsional)" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">💾 Simpan Laporan</button>
+                                <button type="reset" class="btn btn-secondary">↻ Bersihkan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- View Page -->
+                <div class="page view-page">
+                    <div class="card">
+                        <div class="view-header">
+                            <h3>📋 Data Laporan</h3>
+                            <input type="text" id="filterInput" class="filter-input" placeholder="🔍 Filter berdasarkan nama atau kelas...">
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table id="viewTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Kelas</th>
+                                        <th>Judul</th>
+                                        <th>Nilai</th>
+                                        <th>Kategori</th>
+                                        <th>Status</th>
+                                        <th>Tanggal</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan="9" style="text-align: center; color: #999;">Belum ada data</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Page -->
+                <div class="page statistik-page">
+                    <div class="dashboard-grid">
+                        <div class="card full-width">
+                            <h3>Ringkasan Performa</h3>
+                            <div class="stats-summary-container">
+                                <div class="stat-circle-box">
+                                    <div class="pie-chart" id="passPieChart"></div>
+                                    <div class="legend">
+                                        <span class="legend-item">
+                                            <span class="dot lulus"></span>Lulus (>75) 
+                                        </span>
+                                        <span class="legend-item">
+                                            <span class="dot tidak"></span>Remedial (<75) 
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stat-text-summary">
+                                    <p>
+                                        Rata rata Nilai Sekolah:
+                                        <strong class="highlight-text" id="avgSchool">-</strong>
+                                    </p>
+                                    <p>
+                                        Nilai Tertinggi
+                                        <div class="strong-highlight-text text-success" id="maxScore">-</div>
+                                    </p>
+                                    <p>
+                                        Nilai Terendah
+                                        <div class="strong highlight-text text-danger" id="minScore">-</div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Distribusi Grade</h3>
+                            <div class="bar-chard-container" id="gradeDistribution">
+                                <p style="color: #999; text-align: center;">Memuat data...</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Top 5 Siswa Terbaik</h3>
+                            <div class="leaderboard-list" id="topStudentList">
+                                <p style="color: #999; text-align: center;">Memuat data...</p>
+                            </div>
+                        </div>
+
+                        <div class="card-full-width">
+                            <h3>Rata-rata Per Kelas</h3>
+                            <div class="class-stats-grid" id="classAverages">
+                                <p style="color: #999; text-align: center;" >Memeuat data...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="js.js"></script>
+</body>
+</html>
